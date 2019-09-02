@@ -3,13 +3,15 @@ form {
 }
 .form-group {
   text-align: center;
-  padding-bottom: 25px;
 }
 #todo {
-  margin: 0 auto;
   width: 500px;
 }
 
 a.close {
   float: right;
+}
+
+.tableRow:hover {
+  background-color: rgba(21, 24, 194, 0.575);
 }

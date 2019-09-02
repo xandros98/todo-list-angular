@@ -14,24 +14,33 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="form-group">
-          <h1>To-Do <small>List</small></h1>
-          <form role="form">
-            <input type="text" [(ngModel)]="input" class="form-control" placeholder="Your Task" name="task">
-          </form>
-          <button (click)="addItem()" type="button" class="btn btn btn-primary"
-            style="vertical-align: none !important; border-radius: 0 !important;">Add</button>
-        </div>
-        <div *ngFor="let item of todoitems" class="row">
-          <div class="col-md-10 text-left">
-            {{item.item}}
+      <form style="width: 100%;">
+        <div class="col-md-12 text-center">
+          <div class="form-group">
+            <h1>To-Do <small>List</small></h1>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group md-form formm form-2 pl-0">
+                  <input class="form-control my-0 py-1 red-border" [(ngModel)]="input" name="input" type="text"
+                    placeholder="My next task" aria-label="Task">
+                  <button (click)="addItem()" type="submit" style="display: inline">
+                    <i class="material-icons" style="cursor: pointer;">add_circle_outline</i>
+                  </button>
+                </div>
+                <span style="color: red; display: inline-block;"> {{error ? error : ''}}</span>
+              </div>
+            </div>
           </div>
-          <div class="col-md-2 text-right">
-            <i class="material-icons" (click)="removeItem(item)" style="cursor: pointer">delete</i>
+          <div *ngFor="let item of todoitems" class="row tableRow">
+            <div class="col-md-10 text-left">
+              {{item.item}}
+            </div>
+            <div class="col-md-2 text-right">
+              <i class="material-icons" (click)="removeItem(item)" style="cursor: pointer; ">delete</i>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </body>
