@@ -23,10 +23,11 @@
             <div class="col-md-12">
               <div class="input-group md-form formm form-2 pl-0">
                 <form style=" width: 100%">
-                  <input autofocus style="float: left; width: 95%; height: 36px; padding-left: 5px"
-                    [(ngModel)]="input" name="input" type="text" placeholder="Add your next task" aria-label="Task">
+                  <input autofocus style="float: left; width: 95%; height: 36px; padding-left: 5px" [(ngModel)]="input"
+                    name="input" type="text" placeholder="Add your next task" aria-label="Task">
                   <button type="submit" (click)="addItem()" style="height: 36px;">
-                    <i class="material-icons" style="cursor: pointer;">add_circle_outline</i>
+                    <i class="material-icons"
+                      style="cursor: pointer; display: flex; justify-content: center;">add_circle_outline</i>
                   </button>
                 </form>
               </div>
@@ -47,14 +48,15 @@
             <div class="col-md-2 text-right">
 
               <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(i)"
-                style="cursor: pointer; ">edit</i>
+                style="cursor: pointer; padding-right: 5px;">edit</i>
               <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
-                style="cursor: pointer; ">delete</i>
+                style="cursor: pointer; padding-right: 5px;">delete</i>
               <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex" (click)="cancel(item)"
-                style="cursor: pointer;">cancel</i>
+                style="cursor: pointer; padding-right: 5px;">cancel</i>
 
               <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex" (click)="saveItem(i)">
-                <i class="material-icons" style="cursor: pointer; ">save</i>
+                <i class="material-icons"
+                  style="cursor: pointer; padding-right: 5px; display: flex; justify-content: center;">save</i>
               </button>
             </div>
           </div>
