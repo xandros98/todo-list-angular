@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,34 +15,51 @@
 
 <body>
   <div class="container">
-    <div class="row">
-      <form style="width: 100%;">
-        <div class="col-md-12 text-center">
-          <div class="form-group">
-            <h1>To-Do <small>List</small></h1>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="input-group md-form formm form-2 pl-0">
-                  <input class="form-control my-0 py-1 red-border" [(ngModel)]="input" name="input" type="text"
-                    placeholder="My next task" aria-label="Task">
-                  <button (click)="addItem()" type="submit" style="display: inline">
+    <div class="row" style="width: 100%;">
+      <div class="col-md-12 text-center">
+        <div class="form-group">
+          <h1>To-Do List <small>App</small></h1>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="input-group md-form formm form-2 pl-0">
+                <form style=" width: 100%">
+                  <input autofocus style="float: left; width: 95%; height: 36px; padding-left: 5px"
+                    [(ngModel)]="input" name="input" type="text" placeholder="Add your next task" aria-label="Task">
+                  <button type="submit" (click)="addItem()" style="height: 36px;">
                     <i class="material-icons" style="cursor: pointer;">add_circle_outline</i>
                   </button>
-                </div>
-                <span style="color: red; display: inline-block;"> {{error ? error : ''}}</span>
+                </form>
               </div>
-            </div>
-          </div>
-          <div *ngFor="let item of todoitems" class="row tableRow">
-            <div class="col-md-10 text-left">
-              {{item.item}}
-            </div>
-            <div class="col-md-2 text-right">
-              <i class="material-icons" (click)="removeItem(item)" style="cursor: pointer; ">delete</i>
+
+              <span style="color: red; display: inline-block;"> {{error ? error : ''}}</span>
             </div>
           </div>
         </div>
-      </form>
+        <form style="width: 100%">
+
+          <div *ngFor="let item of todoitems; let i = index" class="row tableRow">
+            <div class="col-md-10 text-left">
+              <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex" name="itemText"
+                #newItemInput>
+
+              <p *ngIf="i != chosenItemIndex">{{item.item}}</p>
+            </div>
+            <div class="col-md-2 text-right">
+
+              <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(i)"
+                style="cursor: pointer; ">edit</i>
+              <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
+                style="cursor: pointer; ">delete</i>
+              <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex" (click)="cancel(item)"
+                style="cursor: pointer;">cancel</i>
+
+              <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex" (click)="saveItem(i)">
+                <i class="material-icons" style="cursor: pointer; ">save</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </body>

@@ -1,0 +1,17 @@
+<div style="margin-bottom: -35px;" class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+        <i (click)="no()" class="material-icons"
+            style="position: relative; top: -17px; font-size: 30px; left: 55px; cursor: pointer; ">
+            close
+        </i>
+    </div>
+</div>
+<h1 mat-dialog-title>Delete Task</h1>
+<div mat-dialog-content>
+    <p>Are you sure you want to remove the <b>{{taskname}}</b> task?
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="btn btn-danger" (click)="ok()" style="margin-right:10px;">Yes</button>
+    <button class="btn" mat-button (click)="no()" style="background-color:grey;color:white;">Cancel</button>
+</div>

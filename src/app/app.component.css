@@ -15,3 +15,8 @@ a.close {
 .tableRow:hover {
   background-color: rgba(21, 24, 194, 0.575);
 }
+
+html,
+body {
+  background-color: rgb(243, 243, 243);
+}
