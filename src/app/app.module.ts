@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DeleteConfirmation } from './app.component';
+import { DeleteConfirmation, UpdateDialog } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './data.service';
 
 @NgModule({
   imports: [
@@ -15,16 +17,19 @@ import { DeleteConfirmation } from './app.component';
     AppRoutingModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule
   ],
   declarations: [
     AppComponent,
-    DeleteConfirmation
+    DeleteConfirmation,
+    UpdateDialog
   ],
   entryComponents: [
-    DeleteConfirmation
+    DeleteConfirmation,
+    UpdateDialog
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
