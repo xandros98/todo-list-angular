@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
+import { LoggerService } from './loggerService';
 import { Task } from './task.model';
 
 @Component({
@@ -15,19 +15,14 @@ export class AppComponent implements OnInit {
 
   private todoitems: Task[];
   private input: string;
-  private index: number;
-  private error: string;
-  private mode: string;
   private itemText: string;
 
   constructor(private dialog: MatDialog,
     private snackbar: MatSnackBar,
-    private dataService: DataService) {
+    private dataService: DataService,
+    private loggerService: LoggerService) {
 
     this.input = "";
-    this.index = 0;
-    this.error = "";
-    this.mode = "view";
     this.itemText = "";
   }
 
@@ -36,17 +31,10 @@ export class AppComponent implements OnInit {
       .subscribe(tasks => this.todoitems = tasks);
   }
 
-  log(msg: string) {
-    this.snackbar.open(msg, "x", { duration: 2500 });
-  }
-
   addItem() {
     if (this.input.trim() != "") {
-
       this.dataService.addTask({ itemText: this.input }).subscribe(tasks => this.todoitems = tasks);
       this.input = "";
-    } else {
-      this.log("Please add a task");
     }
   }
 
@@ -76,13 +64,10 @@ export class AppComponent implements OnInit {
         this.dataService.updateTask({ itemText: result, id: item.id }).subscribe(tasks => {
           this.todoitems = tasks;
         });
+      } else {
+        this.loggerService.log("Please add a task");
       }
     });
-
-    // this.mode = "edit";
-    // this.itemText = this.todoitems[i].itemText;
-
-    setTimeout(() => this.inputEl.nativeElement.focus(), 0);
   }
 
   saveItem(index: number) {
@@ -90,13 +75,12 @@ export class AppComponent implements OnInit {
       this.todoitems[index].itemText = this.itemText;
       this.cancel();
     } else {
-      this.log("Must not be empty");
+      this.loggerService.log("Must not be empty");
     }
   }
 
   cancel() {
     this.itemText = "";
-    this.mode = "view";
   }
 }
 
@@ -109,8 +93,8 @@ export class DeleteConfirmation {
 
   private itemText: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string,
-    public dialogRef: MatDialogRef<DeleteConfirmation>) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: string,
+    private dialogRef: MatDialogRef<DeleteConfirmation>) {
     this.itemText = data;
   }
 
@@ -131,8 +115,10 @@ export class UpdateDialog {
 
   private itemText: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string,
-    public dialogRef: MatDialogRef<DeleteConfirmation>) {
+  constructor(@Inject(MAT_DIALOG_DATA) private data: string,
+    private dialogRef: MatDialogRef<DeleteConfirmation>,
+    private loggerService: LoggerService) {
+
     this.itemText = data;
   }
 
@@ -141,6 +127,10 @@ export class UpdateDialog {
   }
 
   ok() {
-    this.dialogRef.close(this.itemText);
+    if (this.itemText.trim() != "") {
+      this.dialogRef.close(this.itemText);
+    } else {
+      this.loggerService.log("Please add a task");
+    }
   }
 }

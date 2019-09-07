@@ -9,9 +9,10 @@
 </div>
 <h1 mat-dialog-title>Update Task</h1>
 <div mat-dialog-content>
-    <input type="text" [(ngModel)]="itemText" placeholder="Edit this task">
+    <input class="form-control" type="text" matInput placeholder="Edit Task" aria-label="Edit Task"
+        [(ngModel)]="itemText">
 </div>
 <div mat-dialog-actions>
-    <button mat-button class="btn btn-danger" (click)="ok()" style="margin-right:10px;">Yes</button>
+    <button mat-button class="btn btn-danger" (click)="ok()" style="margin-right:10px;">Save</button>
     <button class="btn" mat-button (click)="no()" style="background-color:grey;color:white;">Cancel</button>
 </div>
