@@ -84,7 +84,6 @@ export class AppComponent implements OnInit {
   }
 }
 
-
 @Component({
   selector: 'delete-confirmation',
   templateUrl: './delete-confirmation.component.html'
@@ -129,8 +128,6 @@ export class UpdateDialog {
   ok() {
     if (this.itemText.trim() != "") {
       this.dialogRef.close(this.itemText);
-    } else {
-      this.loggerService.log("Please add a task");
     }
   }
 }
