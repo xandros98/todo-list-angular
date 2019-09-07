@@ -1,0 +1,37 @@
+<div class="container">
+    <h1 mat-dialog-title>Please Register</h1>
+    <div mat-dialog-content>
+        <div class="row">
+            <div class="col-md-6">
+                <label><b>First Name:</b></label>
+                <input class="form-control" [(ngModel)]="firstname" placeholder="First Name" style="margin-bottom:10px;"
+                    [ngStyle]="{'border':titleError == true ?'1px solid red':'1px solid #ced4da'}">
+
+                <label><b>Last Name: </b></label>
+                <input class="form-control" [(ngModel)]="lastname" placeholder="Last Name" style="margin-bottom:10px;"
+                    [ngStyle]="{'border':titleError == true ?'1px solid red':'1px solid #ced4da'}">
+
+                <label><b>Username: </b></label>
+                <input class="form-control" [(ngModel)]="username" placeholder="Username" style="margin-bottom:10px;"
+                    [ngStyle]="{'border':titleError == true ?'1px solid red':'1px solid #ced4da'}">
+            </div>
+
+            <div class="col-md-6">
+                <label><b>Email: </b></label>
+                <input class="form-control" [(ngModel)]="email" placeholder="email" style="margin-bottom:10px;"
+                    [ngStyle]="{'border':titleError == true ?'1px solid red':'1px solid #ced4da'}">
+
+                <label><b>Password: </b></label>
+                <input type="password" class="form-control" [(ngModel)]="password" placeholder="Password"
+                    style="margin-bottom:10px;"
+                    [ngStyle]="{'border':titleError == true ?'1px solid red':'1px solid #ced4da'}">
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="btn btn-success" type="submit" cdkFocusInitial (click)="addUser()"
+            style="margin-right:10px;">Save</button>
+        <button class="btn" mat-button (click)="goBack()" style="background-color:grey;color:white;">Go
+            Back</button>
+    </div>
+</div>

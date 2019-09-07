@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row" style="width: 100%;">
+        <div class="col-md-12 text-center">
+            <div class="form-group">
+                <h1 style="font-weight: 500;">To-Do List <small>App</small></h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group md-form formm form-2 pl-0">
+                            <form style=" width: 100%">
+                                <input autofocus style="float: left; width: 95%; height: 36px; padding-left: 5px"
+                                    [(ngModel)]="input" name="input" type="text" placeholder="Add your next task"
+                                    aria-label="Task">
+                                <button type="submit" (click)="addItem()"
+                                    style="height: 36px; border: none; background-color: transparent;">
+                                    <i class="material-icons"
+                                        style="cursor: pointer; display: flex; justify-content: center; font-size: 35px;">add_circle_outline</i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <span style="color: red; display: inline-block;"> {{error ? error : ''}}</span>
+                    </div>
+                </div>
+            </div>
+            <form style="width: 100%">
+                <div *ngFor="let item of todoitems; let i = index" class="row tableRow">
+                    <div class="col-md-10 text-left">
+                        <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            name="itemText" #newItemInput>
+
+                        <p style="overflow-x: hidden;" *ngIf="i != chosenItemIndex">{{item.itemText}}</p>
+                    </div>
+                    <div class="col-md-2 text-right">
+
+                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
+                            style="cursor: pointer; padding-right: 5px;">edit</i>
+                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
+                            style="cursor: pointer; padding-right: 5px;">delete</i>
+                        <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            (click)="cancel(item)" style="cursor: pointer; padding-right: 5px;">cancel</i>
+
+                        <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            (click)="saveItem(item.id)">
+                            <i class="material-icons"
+                                style="cursor: pointer; padding-right: 5px; display: flex; justify-content: center;">save</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

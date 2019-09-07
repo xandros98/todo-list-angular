@@ -1,15 +1,14 @@
 import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { DataService } from './services/data.service';
-import { LoggerService } from './services/loggerService';
-import { Task } from './models/task.model';
+import { DataService } from '../services/data.service';
+import { LoggerService } from '../services/loggerService';
+import { Task } from '../models/task.model';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './taskscomponent.component.html',
+  styleUrls: ['./taskscomponent.component.css']
 })
-export class AppComponent implements OnInit {
+export class TasksComponenet implements OnInit {
   @ViewChild('newItemInput', { static: false, }) inputEl: ElementRef;
 
   private todoitems: Task[];
@@ -32,6 +31,7 @@ export class AppComponent implements OnInit {
   addItem() {
     if (this.input.trim() != "") {
       this.dataService.addTask({ itemText: this.input }).subscribe(tasks => this.todoitems = tasks);
+      this.loggerService.log("Successfully added the task");
       this.input = "";
     } else {
       this.loggerService.log("Please add a task");
@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
       if (result) {
         this.dataService.deleteTask(item).subscribe(tasks => {
           this.todoitems = tasks;
+          this.loggerService.log("Successfully removed the task");
         });
       }
     });
@@ -63,18 +64,10 @@ export class AppComponent implements OnInit {
       if (result) {
         this.dataService.updateTask({ itemText: result, id: item.id }).subscribe(tasks => {
           this.todoitems = tasks;
+          this.loggerService.log("Successfully updated the task");
         });
       }
     });
-  }
-
-  saveItem(index: number) {
-    if (this.itemText) {
-      this.todoitems[index].itemText = this.itemText;
-      this.cancel();
-    } else {
-      this.loggerService.log("Must not be empty");
-    }
   }
 
   cancel() {
@@ -84,7 +77,7 @@ export class AppComponent implements OnInit {
 
 @Component({
   selector: 'delete-confirmation',
-  templateUrl: './delete-confirmation.component.html'
+  templateUrl: '../delete-confirmation.component.html'
 })
 export class DeleteConfirmation {
 
@@ -106,7 +99,7 @@ export class DeleteConfirmation {
 
 @Component({
   selector: 'update-confirmation',
-  templateUrl: './update.component.html'
+  templateUrl: '../update.component.html'
 })
 export class UpdateDialog {
 

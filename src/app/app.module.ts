@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DeleteConfirmation, UpdateDialog } from './app.component';
+import { DeleteConfirmation, UpdateDialog } from './tasks/taskscomponent.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from './data.service';
-import { LoggerService } from './loggerService';
-
+import { CommonModule } from '@angular/common';
+import { DataService } from './services/data.service';
+import { LoggerService } from './services/loggerService';
+import { LoginComponent } from './user/login/login.component';
+import { SignupComponent } from './user/signup/signup.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { TasksComponenet } from './tasks/taskscomponent.component';
 
 @NgModule({
   imports: [
@@ -20,12 +24,17 @@ import { LoggerService } from './loggerService';
     MatSnackBarModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   declarations: [
     AppComponent,
     DeleteConfirmation,
-    UpdateDialog
+    UpdateDialog,
+    LoginComponent,
+    SignupComponent,
+    PagenotfoundComponent,
+    TasksComponenet
   ],
   entryComponents: [
     DeleteConfirmation,
@@ -34,4 +43,5 @@ import { LoggerService } from './loggerService';
   providers: [DataService, LoggerService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
