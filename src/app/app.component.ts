@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
   addItem() {
     if (this.input.trim() != "") {
 
-      this.dataService.addTask({ itemText: this.input, id: 0 }).subscribe(tasks => this.todoitems = tasks);
+      this.dataService.addTask({ itemText: this.input }).subscribe(tasks => this.todoitems = tasks);
       this.input = "";
     } else {
       this.log("Please add a task");
