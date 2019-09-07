@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { DataService } from './data.service';
 import { LoggerService } from './loggerService';
 import { Task } from './task.model';
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
   private itemText: string;
 
   constructor(private dialog: MatDialog,
-    private snackbar: MatSnackBar,
     private dataService: DataService,
     private loggerService: LoggerService) {
 
@@ -64,8 +62,6 @@ export class AppComponent implements OnInit {
         this.dataService.updateTask({ itemText: result, id: item.id }).subscribe(tasks => {
           this.todoitems = tasks;
         });
-      } else {
-        this.loggerService.log("Please add a task");
       }
     });
   }
@@ -128,6 +124,8 @@ export class UpdateDialog {
   ok() {
     if (this.itemText.trim() != "") {
       this.dialogRef.close(this.itemText);
+    } else {
+      this.loggerService.log("Please add a task");
     }
   }
 }
