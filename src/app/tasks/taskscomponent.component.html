@@ -33,16 +33,16 @@
                     <div class="col-md-2 text-right">
 
                         <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
-                            style="cursor: pointer; padding-right: 5px;">edit</i>
+                            style="cursor: pointer; padding: 5px;">edit</i>
                         <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
-                            style="cursor: pointer; padding-right: 5px;">delete</i>
+                            style="cursor: pointer; padding: 5px;" id="trash-icon">delete</i>
                         <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                            (click)="cancel(item)" style="cursor: pointer; padding-right: 5px;">cancel</i>
+                            (click)="cancel(item)" style="cursor: pointer; padding: 5px;">cancel</i>
 
                         <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
                             (click)="saveItem(item.id)">
                             <i class="material-icons"
-                                style="cursor: pointer; padding-right: 5px; display: flex; justify-content: center;">save</i>
+                                style="cursor: pointer; padding: 5px; display: flex; justify-content: center;">save</i>
                         </button>
                     </div>
                 </div>

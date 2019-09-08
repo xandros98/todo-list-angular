@@ -34,7 +34,7 @@ export class DataService {
   }
 
   getUser(user: any) {
-    return this.http.post<User[]>(this.apuUrl + "users/getUser/", user);
+    return this.http.post<any>(this.apuUrl + "users/getUser/", user);
   }
 
   updateUser(user: any) {

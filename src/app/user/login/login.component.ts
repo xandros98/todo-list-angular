@@ -29,13 +29,15 @@ export class LoginComponent {
     }
 
     this.dataService.getUser(user).subscribe(res => {
-      if (res.length != 0) {
+      console.log("res: ", res);
+      if (res) {
         this.loggerService.log("Succes! You are now logged in as " + this.username);
         this.router.navigate(['/'])
       } else {
         this.loggerService.log("Please try again");
       }
-    });
-
+    },
+      err => this.loggerService.log(err.error.msg)
+    )
   }
 }

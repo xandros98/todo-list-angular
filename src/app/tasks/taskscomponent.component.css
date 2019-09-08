@@ -1,0 +1,21 @@
+form {
+  display: inline-block;
+}
+.form-group {
+  text-align: center;
+}
+#todo {
+  width: 500px;
+}
+
+a.close {
+  float: right;
+}
+
+.tableRow:hover {
+  background-color: rgba(194, 189, 189, 0.575);
+}
+
+#trash-icon:hover {
+  color: red;
+}

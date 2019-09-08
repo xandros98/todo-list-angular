@@ -1,21 +1,3 @@
-form {
-  display: inline-block;
-}
-.form-group {
-  text-align: center;
-}
-#todo {
-  width: 500px;
-}
-
-a.close {
-  float: right;
-}
-
-.tableRow:hover {
-  background-color: rgba(21, 24, 194, 0.575);
-}
-
 html,
 body {
   background-color: rgb(243, 243, 243);
