@@ -26,7 +26,8 @@ export class TasksComponenet implements OnInit {
 
   ngOnInit() {
     this.dataService.getTasks()
-      .subscribe(tasks => this.todoitems = tasks);
+      .subscribe(tasks => this.todoitems = tasks)
+      , (err: any) => this.loggerService.log("Something Went Wrong");
   }
 
   addItem() {
@@ -52,7 +53,9 @@ export class TasksComponenet implements OnInit {
           this.loggerService.log("Successfully removed the task");
         });
       }
-    });
+    }, (err: any) =>
+      this.loggerService.log("Something Went Wrong")
+    );
   }
 
   editItem(item: any) {

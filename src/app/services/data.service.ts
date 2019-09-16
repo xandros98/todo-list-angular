@@ -19,8 +19,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -31,8 +29,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -43,8 +39,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -55,8 +49,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -67,8 +59,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -80,8 +70,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -92,8 +80,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -104,8 +90,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -116,8 +100,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
@@ -128,8 +110,6 @@ export class DataService {
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
-        } else {
-          this.loggerService.log(response.error);
         }
       }
     );
