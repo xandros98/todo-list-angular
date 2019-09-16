@@ -24,37 +24,34 @@
             </div>
             <form style="width: 100%">
 
-                <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-
-                    <div cdkDrag *ngFor="let item of todoitems; let i = index" class="row
+                <div *ngFor="let item of todoitems; let i = index" class="row
                     tableRow example-list">
+                    <div class="col-md-10 text-left">
+                        <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            name="itemText" #newItemInput>
 
-                        <div class="col-md-10 text-left">
-                            <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                                name="itemText" #newItemInput>
+                        <p style="overflow-x: hidden; padding-top: 10px;" *ngIf="i != chosenItemIndex"
+                            class="example-box">{{item.itemText}}
+                        </p>
+                    </div>
 
-                            <p style="overflow-x: hidden; padding-top: 10px;" *ngIf="i != chosenItemIndex"
-                                class="example-box">{{item.itemText}}
-                            </p>
-                        </div>
+                    <div class="col-md-2 text-right">
 
-                        <div class="col-md-2 text-right">
+                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
+                            style="cursor: pointer; padding: 5px;">edit</i>
+                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
+                            style="cursor: pointer; padding: 5px;" id="trash-icon">delete</i>
+                        <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            (click)="cancel(item)" style="cursor: pointer; padding: 5px;">cancel</i>
 
-                            <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
-                                style="cursor: pointer; padding: 5px;">edit</i>
-                            <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
-                                style="cursor: pointer; padding: 5px;" id="trash-icon">delete</i>
-                            <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                                (click)="cancel(item)" style="cursor: pointer; padding: 5px;">cancel</i>
-
-                            <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                                (click)="saveItem(item.id)">
-                                <i class="material-icons"
-                                    style="cursor: pointer; padding: 5px; display: flex; justify-content: center;">save</i>
-                            </button>
-                        </div>
+                        <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                            (click)="saveItem(item.id)">
+                            <i class="material-icons"
+                                style="cursor: pointer; padding: 5px; display: flex; justify-content: center;">save</i>
+                        </button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>

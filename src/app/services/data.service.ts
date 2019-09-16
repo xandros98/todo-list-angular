@@ -21,7 +21,7 @@ export class DataService {
 
   addTask(task: any) {
     return this.http.post<Task[]>(this.apuUrl + "tasks/addNewTask/", task);
-  } 
+  }
 
   deleteTask(item: any) {
     return this.http.post<Task[]>(this.apuUrl + "tasks/deleteTask/", item);

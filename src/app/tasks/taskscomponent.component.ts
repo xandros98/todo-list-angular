@@ -30,44 +30,6 @@ export class TasksComponenet implements OnInit {
       .subscribe(tasks => this.todoitems = tasks);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
-    moveItemInArray(this.todoitems, event.previousIndex, event.currentIndex);
-
-    const newPos = this.todoitems.length - (this.todoitems.length - event.currentIndex);
-    const oldPos = this.todoitems.length - (this.todoitems.length - event.previousIndex);
-
-    this.todoitems[newPos].pos = this.todoitems.length - 1 - newPos;
-    this.todoitems[oldPos].pos = this.todoitems.length - 1 - oldPos;
-
-    // update them 
-    this.updatePos(this.todoitems[newPos]);
-    this.updatePos(this.todoitems[oldPos]);
-  }
-
-  updatePos(newTask: any) {
-    this.dataService.updateTask(newTask)
-      .subscribe((response: any) => {
-        this.todoitems = response;
-      }, (err: any) =>
-        this.loggerService.log("Something Went Wrong")
-      )
-  }
-
-  changePos(pos: number, task: any) {
-    const newObjTask = {
-      itemText: task.itemText,
-      pos: pos
-    };
-
-    this.dataService.updateTask(newObjTask).subscribe((data: any) => {
-      this.todoitems = data;
-      this.loggerService.log("Successfully updated the task");
-    }, (err: any) =>
-      this.loggerService.log("Something Went Wrong")
-    )
-  }
-
   addItem() {
     if (this.input.trim() != "") {
       this.dataService.addTask({ itemText: this.input }).subscribe(tasks => this.todoitems = tasks);
