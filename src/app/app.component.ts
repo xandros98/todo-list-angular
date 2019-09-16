@@ -3,7 +3,6 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { DataService } from './services/data.service';
 import { LoggerService } from './services/loggerService';
 import { UpdateDialog, DeleteConfirmation } from './tasks/taskscomponent.component';
-import { Task } from './models/task.model';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ import { Task } from './models/task.model';
 export class AppComponent implements OnInit {
   @ViewChild('newItemInput', { static: false, }) inputEl: ElementRef;
 
-  private todoitems: Task[];
+  private todoitems: any;
   private input: string;
   private itemText: string;
 

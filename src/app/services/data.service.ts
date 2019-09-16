@@ -13,6 +13,7 @@ export class DataService {
     private loggerService: LoggerService) {
   }
 
+
   getTasks() {
     return this.http.get<any>(this.apuUrl + "tasks/getAllTasks/").map(
       (response: any) => {
@@ -49,32 +50,33 @@ export class DataService {
     );
   }
 
+  getUserById(id: number) {
+    return this.http.get<any>(this.apuUrl + "users/getUserById/" + id).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
+  }
+
+  getUser(user: any) {
+    return this.http.post<any>(this.apuUrl + "users/getUser/", user).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
+  }
+
+
   updateTask(item: any) {
     return this.http.post<any>(this.apuUrl + "tasks/updateTask/", item).map(
-      (response: any) => {
-        if (response.status === "ok") {
-          return response.data;
-        } else {
-          this.loggerService.log(response.error);
-        }
-      }
-    );
-  }
-
-  getanyById(id: number) {
-    return this.http.get<any>(this.apuUrl + "anys/getanyById/" + id).map(
-      (response: any) => {
-        if (response.status === "ok") {
-          return response.data;
-        } else {
-          this.loggerService.log(response.error);
-        }
-      }
-    );
-  }
-
-  getany(any: any) {
-    return this.http.post<any>(this.apuUrl + "anys/getany/", any).map(
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
@@ -97,8 +99,8 @@ export class DataService {
     );
   }
 
-  deleteany(any: any) {
-    return this.http.post<any>(this.apuUrl + "anys/deleteany/", any).map(
+  deleteUser(any: any) {
+    return this.http.post<any>(this.apuUrl + "anys/deleteUser/", any).map(
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
@@ -109,8 +111,8 @@ export class DataService {
     );
   }
 
-  addNewany(any: any) {
-    return this.http.post<any>(this.apuUrl + "anys/addNewany/", any).map(
+  addNewUser(any: any) {
+    return this.http.post<any>(this.apuUrl + "anys/addNewUser/", any).map(
       (response: any) => {
         if (response.status === "ok") {
           return response.data;
