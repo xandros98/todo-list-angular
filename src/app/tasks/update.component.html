@@ -11,6 +11,9 @@
 <div mat-dialog-content>
     <input class="form-control" type="text" matInput placeholder="Edit Task" aria-label="Edit Task"
         [(ngModel)]="itemText">
+    <b>Description:</b>
+    <textarea name="description" class="form-control" [(ngModel)]="desc" style="border:0; padding:0; resize: none;"
+        placeholder="Description" rows="3"></textarea>
 </div>
 <div mat-dialog-actions>
     <button mat-button class="btn btn-danger" (click)="ok()" style="margin-right:10px;">Save</button>

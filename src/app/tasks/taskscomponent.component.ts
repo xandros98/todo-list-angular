@@ -3,6 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { DataService } from '../services/data.service';
 import { LoggerService } from '../services/loggerService';
 import { Task } from '../models/task.model';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   templateUrl: './taskscomponent.component.html',
@@ -21,11 +22,50 @@ export class TasksComponenet implements OnInit {
 
     this.input = "";
     this.itemText = "";
+    this.todoitems = [];
   }
 
   ngOnInit() {
     this.dataService.getTasks()
       .subscribe(tasks => this.todoitems = tasks);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event);
+    moveItemInArray(this.todoitems, event.previousIndex, event.currentIndex);
+
+    const newPos = this.todoitems.length - (this.todoitems.length - event.currentIndex);
+    const oldPos = this.todoitems.length - (this.todoitems.length - event.previousIndex);
+
+    this.todoitems[newPos].pos = this.todoitems.length - 1 - newPos;
+    this.todoitems[oldPos].pos = this.todoitems.length - 1 - oldPos;
+
+    // update them 
+    this.updatePos(this.todoitems[newPos]);
+    this.updatePos(this.todoitems[oldPos]);
+  }
+
+  updatePos(newTask: any) {
+    this.dataService.updateTask(newTask)
+      .subscribe((response: any) => {
+        this.todoitems = response;
+      }, (err: any) =>
+        this.loggerService.log("Something Went Wrong")
+      )
+  }
+
+  changePos(pos: number, task: any) {
+    const newObjTask = {
+      itemText: task.itemText,
+      pos: pos
+    };
+
+    this.dataService.updateTask(newObjTask).subscribe((data: any) => {
+      this.todoitems = data;
+      this.loggerService.log("Successfully updated the task");
+    }, (err: any) =>
+      this.loggerService.log("Something Went Wrong")
+    )
   }
 
   addItem() {
@@ -57,16 +97,17 @@ export class TasksComponenet implements OnInit {
   editItem(item: any) {
     const dialogRef = this.dialog.open(UpdateDialog, {
       width: '600px',
-      data: item.itemText
+      data: [item.itemText, item.desc, , item.pos]
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.dataService.updateTask({ itemText: result, id: item.id }).subscribe(tasks => {
-          this.todoitems = tasks;
+      this.dataService.updateTask({ itemText: result.itemText, desc: result.desc, pos: item.pos, id: item.id })
+        .subscribe((response: any) => {
+          this.todoitems = response;
           this.loggerService.log("Successfully updated the task");
-        });
-      }
+        }, (err: any) =>
+          this.loggerService.log("Something Went Wrong")
+        )
     });
   }
 
@@ -77,7 +118,7 @@ export class TasksComponenet implements OnInit {
 
 @Component({
   selector: 'delete-confirmation',
-  templateUrl: '../delete-confirmation.component.html'
+  templateUrl: './delete-confirmation.component.html'
 })
 export class DeleteConfirmation {
 
@@ -99,17 +140,21 @@ export class DeleteConfirmation {
 
 @Component({
   selector: 'update-confirmation',
-  templateUrl: '../update.component.html'
+  templateUrl: './update.component.html'
 })
 export class UpdateDialog {
 
   private itemText: string;
+  private desc: string;
+  private pos: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: string,
+  constructor(@Inject(MAT_DIALOG_DATA) private data: string[],
     private dialogRef: MatDialogRef<DeleteConfirmation>,
     private loggerService: LoggerService) {
 
-    this.itemText = data;
+    this.itemText = data[0];
+    this.desc = data[1];
+    this.pos = parseInt(data[2]);
   }
 
   no() {
@@ -117,8 +162,14 @@ export class UpdateDialog {
   }
 
   ok() {
+    const taskObj = {
+      itemText: this.itemText,
+      desc: this.desc,
+      pos: this.pos
+    }
+
     if (this.itemText.trim() != "") {
-      this.dialogRef.close(this.itemText);
+      this.dialogRef.close(taskObj);
     } else {
       this.loggerService.log("Please add a task");
     }

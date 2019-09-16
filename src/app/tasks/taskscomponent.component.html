@@ -11,7 +11,7 @@
                                     [(ngModel)]="input" name="input" type="text" placeholder="Add your next task"
                                     aria-label="Task">
                                 <button type="submit" (click)="addItem()"
-                                    style="height: 36px; border: none; background-color: transparent;">
+                                    style="height: 36px; border: none; background-color: transparent; position: absolute; right: 3px; ">
                                     <i class="material-icons"
                                         style="cursor: pointer; display: flex; justify-content: center; font-size: 35px;">add_circle_outline</i>
                                 </button>
@@ -23,27 +23,36 @@
                 </div>
             </div>
             <form style="width: 100%">
-                <div *ngFor="let item of todoitems; let i = index" class="row tableRow">
-                    <div class="col-md-10 text-left">
-                        <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                            name="itemText" #newItemInput>
 
-                        <p style="overflow-x: hidden;" *ngIf="i != chosenItemIndex">{{item.itemText}}</p>
-                    </div>
-                    <div class="col-md-2 text-right">
+                <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
 
-                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
-                            style="cursor: pointer; padding: 5px;">edit</i>
-                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
-                            style="cursor: pointer; padding: 5px;" id="trash-icon">delete</i>
-                        <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                            (click)="cancel(item)" style="cursor: pointer; padding: 5px;">cancel</i>
+                    <div cdkDrag *ngFor="let item of todoitems; let i = index" class="row
+                    tableRow example-list">
 
-                        <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
-                            (click)="saveItem(item.id)">
-                            <i class="material-icons"
-                                style="cursor: pointer; padding: 5px; display: flex; justify-content: center;">save</i>
-                        </button>
+                        <div class="col-md-10 text-left">
+                            <input type="text" [(ngModel)]="itemText" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                                name="itemText" #newItemInput>
+
+                            <p style="overflow-x: hidden; padding-top: 10px;" *ngIf="i != chosenItemIndex"
+                                class="example-box">{{item.itemText}}
+                            </p>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+
+                            <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
+                                style="cursor: pointer; padding: 5px;">edit</i>
+                            <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"
+                                style="cursor: pointer; padding: 5px;" id="trash-icon">delete</i>
+                            <i class="material-icons" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                                (click)="cancel(item)" style="cursor: pointer; padding: 5px;">cancel</i>
+
+                            <button type="submit" *ngIf="mode === 'edit' && i === chosenItemIndex"
+                                (click)="saveItem(item.id)">
+                                <i class="material-icons"
+                                    style="cursor: pointer; padding: 5px; display: flex; justify-content: center;">save</i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>

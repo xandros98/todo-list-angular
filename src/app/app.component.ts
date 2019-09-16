@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core'
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { DataService } from './services/data.service';
 import { LoggerService } from './services/loggerService';
+import { UpdateDialog, DeleteConfirmation } from './tasks/taskscomponent.component';
 import { Task } from './models/task.model';
 
 @Component({
@@ -56,12 +57,12 @@ export class AppComponent implements OnInit {
   editItem(item: any) {
     const dialogRef = this.dialog.open(UpdateDialog, {
       width: '600px',
-      data: item.itemText
+      data: [item.itemText, item.desc]
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.dataService.updateTask({ itemText: result, id: item.id }).subscribe(tasks => {
+        this.dataService.updateTask({ itemText: result, id: item.id, desc: item.desc }).subscribe(tasks => {
           this.todoitems = tasks;
         });
       }
@@ -79,55 +80,5 @@ export class AppComponent implements OnInit {
 
   cancel() {
     this.itemText = "";
-  }
-}
-
-@Component({
-  selector: 'delete-confirmation',
-  templateUrl: './delete-confirmation.component.html'
-})
-export class DeleteConfirmation {
-
-  private itemText: string;
-
-  constructor(@Inject(MAT_DIALOG_DATA) private data: string,
-    private dialogRef: MatDialogRef<DeleteConfirmation>) {
-    this.itemText = data;
-  }
-
-  no() {
-    this.dialogRef.close(false);
-  }
-
-  ok() {
-    this.dialogRef.close(true);
-  }
-}
-
-@Component({
-  selector: 'update-confirmation',
-  templateUrl: './update.component.html'
-})
-export class UpdateDialog {
-
-  private itemText: string;
-
-  constructor(@Inject(MAT_DIALOG_DATA) private data: string,
-    private dialogRef: MatDialogRef<DeleteConfirmation>,
-    private loggerService: LoggerService) {
-
-    this.itemText = data;
-  }
-
-  no() {
-    this.dialogRef.close(false);
-  }
-
-  ok() {
-    if (this.itemText.trim() != "") {
-      this.dialogRef.close(this.itemText);
-    } else {
-      this.loggerService.log("Please add a task");
-    }
   }
 }

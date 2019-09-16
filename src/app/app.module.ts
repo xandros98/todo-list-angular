@@ -15,6 +15,8 @@ import { LoginComponent } from './user/login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TasksComponenet } from './tasks/taskscomponent.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { TasksComponenet } from './tasks/taskscomponent.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    DragDropModule,
+    CommonModule,
+    MatCardModule
   ],
   declarations: [
     AppComponent,

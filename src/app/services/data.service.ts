@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task.model';
 import { User } from '../models/user.model';
-
+import { LoggerService } from '../services/loggerService';
+import 'rxjs/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +11,32 @@ import { User } from '../models/user.model';
 export class DataService {
   apuUrl = 'http://localhost:5000/api/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private loggerService: LoggerService) {
   }
 
   getTasks() {
     return this.http.get<Task[]>(this.apuUrl + "tasks/getAllTasks/");
   }
 
-  addTask(itemText: any) {
-    return this.http.post<Task[]>(this.apuUrl + "tasks/addNewTask/", itemText);
-  }
+  addTask(task: any) {
+    return this.http.post<Task[]>(this.apuUrl + "tasks/addNewTask/", task);
+  } 
 
   deleteTask(item: any) {
     return this.http.post<Task[]>(this.apuUrl + "tasks/deleteTask/", item);
   }
 
   updateTask(item: any) {
-    return this.http.put<Task[]>(this.apuUrl + "tasks/updateTask/", item);
+    return this.http.post<any>(this.apuUrl + "tasks/updateTask/", item).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
   getUserById(id: number) {
@@ -47,5 +57,9 @@ export class DataService {
 
   addNewUser(user: any) {
     return this.http.post<User[]>(this.apuUrl + "users/addNewUser/", user);
+  }
+
+  swapPosTasks(newObject: any) {
+    return this.http.post<any>(this.apuUrl + "tasks/swapPosTasks/", newObject);
   }
 }
