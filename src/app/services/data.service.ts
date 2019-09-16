@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Task } from '../models/task.model';
-import { User } from '../models/user.model';
 import { LoggerService } from '../services/loggerService';
 import 'rxjs/add/operator/map';
 
@@ -16,15 +14,39 @@ export class DataService {
   }
 
   getTasks() {
-    return this.http.get<Task[]>(this.apuUrl + "tasks/getAllTasks/");
+    return this.http.get<any>(this.apuUrl + "tasks/getAllTasks/").map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
   addTask(task: any) {
-    return this.http.post<Task[]>(this.apuUrl + "tasks/addNewTask/", task);
+    return this.http.post<any>(this.apuUrl + "tasks/addNewTask/", task).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
   deleteTask(item: any) {
-    return this.http.post<Task[]>(this.apuUrl + "tasks/deleteTask/", item);
+    return this.http.post<any>(this.apuUrl + "tasks/deleteTask/", item).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
   updateTask(item: any) {
@@ -39,27 +61,75 @@ export class DataService {
     );
   }
 
-  getUserById(id: number) {
-    return this.http.get<User>(this.apuUrl + "users/getUserById/" + id);
+  getanyById(id: number) {
+    return this.http.get<any>(this.apuUrl + "anys/getanyById/" + id).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
-  getUser(user: any) {
-    return this.http.post<any>(this.apuUrl + "users/getUser/", user);
+  getany(any: any) {
+    return this.http.post<any>(this.apuUrl + "anys/getany/", any).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
-  updateUser(user: any) {
-    return this.http.put<User[]>(this.apuUrl + "users/updateUser/", user);
+  updateany(any: any) {
+    return this.http.put<any>(this.apuUrl + "anys/updateany/", any).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
-  deleteUser(user: any) {
-    return this.http.post<User[]>(this.apuUrl + "users/deleteUser/", user);
+  deleteany(any: any) {
+    return this.http.post<any>(this.apuUrl + "anys/deleteany/", any).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
-  addNewUser(user: any) {
-    return this.http.post<User[]>(this.apuUrl + "users/addNewUser/", user);
+  addNewany(any: any) {
+    return this.http.post<any>(this.apuUrl + "anys/addNewany/", any).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 
   swapPosTasks(newObject: any) {
-    return this.http.post<any>(this.apuUrl + "tasks/swapPosTasks/", newObject);
+    return this.http.post<any>(this.apuUrl + "tasks/swapPosTasks/", newObject).map(
+      (response: any) => {
+        if (response.status === "ok") {
+          return response.data;
+        } else {
+          this.loggerService.log(response.error);
+        }
+      }
+    );
   }
 }

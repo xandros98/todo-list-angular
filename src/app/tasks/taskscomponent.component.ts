@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core'
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { DataService } from '../services/data.service';
 import { LoggerService } from '../services/loggerService';
-import { Task } from '../models/task.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -12,7 +11,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class TasksComponenet implements OnInit {
   @ViewChild('newItemInput', { static: false, }) inputEl: ElementRef;
 
-  private todoitems: Task[];
+  private todoitems: any;
   private input: string;
   private itemText: string;
 
