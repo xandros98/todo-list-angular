@@ -1,8 +1,4 @@
-import { Component, ElementRef, ViewChild, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { DataService } from './services/data.service';
-import { LoggerService } from './services/loggerService';
-import { UpdateDialog, DeleteConfirmation } from './tasks/taskscomponent.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',

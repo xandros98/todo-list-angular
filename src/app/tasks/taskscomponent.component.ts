@@ -65,13 +65,15 @@ export class TasksComponenet implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataService.updateTask({ itemText: result.itemText, desc: result.desc, pos: item.pos, id: item.id })
-        .subscribe((response: any) => {
-          this.todoitems = response;
-          this.loggerService.log("Successfully updated the task");
-        }, (err: any) =>
-          this.loggerService.log("Something Went Wrong")
-        )
+      if (result) {
+        this.dataService.updateTask({ itemText: result.itemText, desc: result.desc, pos: item.pos, id: item.id })
+          .subscribe((response: any) => {
+            this.todoitems = response;
+            this.loggerService.log("Successfully updated the task");
+          }, (err: any) =>
+            this.loggerService.log("Something Went Wrong")
+          )
+      }
     });
   }
 

@@ -17,6 +17,11 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TasksComponenet } from './tasks/taskscomponent.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material';
+import { HomepageComponent } from './homepage/homepage.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { AuthService } from './services/auth.service';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -38,13 +43,17 @@ import { MatCardModule } from '@angular/material';
     LoginComponent,
     SignupComponent,
     PagenotfoundComponent,
-    TasksComponenet
+    TasksComponenet,
+    HomepageComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProfileComponent
   ],
   entryComponents: [
     DeleteConfirmation,
     UpdateDialog
   ],
-  providers: [DataService, LoggerService],
+  providers: [DataService, LoggerService, AuthService],
   bootstrap: [AppComponent]
 })
 
