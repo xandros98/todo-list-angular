@@ -37,7 +37,8 @@
                     </div>
 
                     <div class="col-md-2 text-right">
-
+                        <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="completeItem(item)"
+                            style="cursor: pointer; padding: 5px;">grade</i>
                         <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="editItem(item)"
                             style="cursor: pointer; padding: 5px;">edit</i>
                         <i class="material-icons" *ngIf="i != chosenItemIndex" (click)="removeItem(item)"

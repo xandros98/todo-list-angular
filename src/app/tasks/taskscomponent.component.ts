@@ -58,6 +58,11 @@ export class TasksComponenet implements OnInit {
     );
   }
 
+  completeItem() {
+    // addToCompleted()
+    this.loggerService.log("Congratulations on completing the task!");
+  }
+
   editItem(item: any) {
     const dialogRef = this.dialog.open(UpdateDialog, {
       width: '600px',
